@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PK2 Editor</title>
+    <link rel="icon" type="image/png" href="favicon.ico"/>
+    <link href="https://v6p9d9t4.ssl.hwcdn.net/html/420707/css/editor.css" rel="stylesheet"/>
+    <link href="https://v6p9d9t4.ssl.hwcdn.net/html/420707/css/windows.css" rel="stylesheet"/>
+    <link href="https://v6p9d9t4.ssl.hwcdn.net/html/420707/css/editor_windows.css" rel="stylesheet"/>
+    <style type="text/css">
+        @font-face {
+            font-family: 'Xolonium';
+            src: url('https://fontlibrary.org/assets/fonts/xolonium/e00c124f3e1b130e5ec2a7eee2f4f1b8/15f3a5a7a8424c8f843ba6c83bfc360d/XoloniumRegular.ttf');
+        }
+    </style>
+    <!-- start Mixpanel -->
+    <script type="text/javascript">
+        (function (e, a) { if (!a.__SV) { var b = window; try { var c, l, i, j = b.location, g = j.hash; c = function (a, b) { return (l = a.match(RegExp(b + "=([^&]*)"))) ? l[1] : null }; g && c(g, "state") && (i = JSON.parse(decodeURIComponent(c(g, "state"))), "mpeditor" === i.action && (b.sessionStorage.setItem("_mpcehash", g), history.replaceState(i.desiredHash || "", e.title, j.pathname + j.search))) } catch (m) { } var k, h; window.mixpanel = a; a._i = []; a.init = function (b, c, f) { function e(b, a) { var c = a.split("."); 2 == c.length && (b = b[c[0]], a = c[1]); b[a] = function () { b.push([a].concat(Array.prototype.slice.call(arguments, 0))) } } var d = a; "undefined" !== typeof f ? d = a[f] = [] : f = "mixpanel"; d.people = d.people || []; d.toString = function (b) { var a = "mixpanel"; "mixpanel" !== f && (a += "." + f); b || (a += " (stub)"); return a }; d.people.toString = function () { return d.toString(1) + ".people (stub)" }; k = "disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" "); for (h = 0; h < k.length; h++)e(d, k[h]); a._i.push([b, c, f]) }; a.__SV = 1.2; b = e.createElement("script"); b.type = "text/javascript"; b.async = !0; b.src = "undefined" !== typeof MIXPANEL_CUSTOM_LIB_URL ? MIXPANEL_CUSTOM_LIB_URL : "file:" === e.location.protocol && "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//) ? "https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js" : "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js"; c = e.getElementsByTagName("script")[0]; c.parentNode.insertBefore(b, c) } })(document, window.mixpanel || []); mixpanel.init("49a348f4b729801dd7b5cf1926e4c141");
+    </script>
+    <!-- end Mixpanel -->
+    <script type="text/javascript">
+        var pk2assetsroot = "https://ravmahov.github.io/projects/pk2webedit/pk2data/";
+        var pk2CustomLibraryRoot = "https://v6p9d9t4.ssl.hwcdn.net/html/420707/";
+    </script>
+    <script type="text/javascript" src="https://v6p9d9t4.ssl.hwcdn.net/html/420707/require.js"></script>
+    <script type="text/javascript" src="https://v6p9d9t4.ssl.hwcdn.net/html/420707/pk2_editor.js"></script>
+</head>
+<body>
+<canvas id="bg-canvas" width="640" height="480">Canvas unsupported</canvas>
+
+<select id="map-selector" onchange="loadMapAndCenterOnStart(this.value);">
+    <optgroup label="Rooster Island 1">
+        <option value="rooster island 1/level001.map">Level 1: Training Course</option>
+        <option value="rooster island 1/level002.map">Level 2: Apple Hills</option>
+        <option value="rooster island 1/level003.map">Level 3: Scrambled Eggs</option>
+        <option value="rooster island 1/level004.map" selected>Level 4: Rainy Forest</option>
+        <option value="rooster island 1/level005.map">Level 5: Castle of Towers</option>
+        <option value="rooster island 1/level006.map">Level 6: Hedgehog River</option>
+        <option value="rooster island 1/level007.map">Level 7: Cave of the Bees</option>
+        <option value="rooster island 1/level008.map">Level 8: Bird Alert!</option>
+        <option value="rooster island 1/level009.map">Level 9: Forest Riddle</option>
+        <option value="rooster island 1/level010.map">Level 10: Teleport Castle</option>
+        <option value="rooster island 1/level011.map">Level 11: Boss Battle</option>
+    </optgroup>
+    <optgroup label="Rooster Island 2">
+        <option value="rooster island 2/level1.map">Level 1: Cliffhanger</option>
+        <option value="rooster island 2/level2.map">Level 2: Frogwell</option>
+        <option value="rooster island 2/level3.map">Level 3: Water Cavern</option>
+        <option value="rooster island 2/level4.map">Level 4: Green Bee River</option>
+        <option value="rooster island 2/level5.map">Level 5: Forest Riddle 2</option>
+        <option value="rooster island 2/level6.map">Level 6: Castle of Clocks</option>
+        <option value="rooster island 2/level7.map">Level 7: Apple Hills 2</option>
+        <option value="rooster island 2/level8.map">Level 8: Chicks 'n' Stones</option>
+        <option value="rooster island 2/level9.map">Level 9: Castle of Keys</option>
+        <option value="rooster island 2/level10.map">Level 10: Flaming Pigs</option>
+        <option value="rooster island 2/level12.map">Level 11: Factory 1</option>
+        <option value="rooster island 2/level11.map">Level 12: Factory 2</option>
+        <option value="rooster island 2/level13.map">Level 13: Boss Battle</option>
+    </optgroup>
+    <optgroup label="Test Cases">
+        <option value="testcases/case01.map">Case 01</option>
+        <option value="testcases/case02.map">Case 02</option>
+        <option value="testcases/case03.map">Case 03</option>
+        <option value="testcases/case04.map">Case 04</option>
+        <option value="testcases/case05.map">Case 05</option>
+        <option value="testcases/case06.map">Case 06</option>
+        <option value="testcases/case07.map">Case 07</option>
+        <option value="testcases/case08.map">Case 08</option>
+        <option value="testcases/case09.map">Case 09</option>
+        <option value="testcases/case10.map">Case 10</option>
+        <option value="testcases/case11.map">Case 11</option>
+    </optgroup>
+</select>
+<div id="editor-toolbox" class="hiddenComponent">
+    <span id="toolbox-text">PK2 Web Editor v0.9RC</span>
+    <!--<button id="save-map-button" onclick="map.writeMap();">SaveMap</button>-->
+    <!--<button id="play-music-button" onclick="playBtnHandler(this);">Play Level Music</button>-->
+    <!--<div id="mapDragFileInput">Drag Map Here To Load</div>-->
+</div>
+
+<div id="pk2window-help" class="window rvstyle">
+    <h2>Help (F1)</h2>
+    <table>
+        <tr>
+            <td>F1</td>
+            <td>Help</td>
+        </tr>
+        <tr>
+            <td>F2</td>
+            <td>Mini-map</td>
+        </tr>
+        <tr>
+            <td>F3</td>
+            <td>Tile palette</td>
+        </tr>
+        <tr>
+            <td>F4</td>
+            <td>Sprites</td>
+        </tr>
+        <tr>
+            <td>F6</td>
+            <td>Load files</td>
+        </tr>
+        <!--<tr>-->
+            <!--<td>F6</td>-->
+            <!--<td>Save map</td>-->
+        <!--</tr>-->
+        <tr>
+            <td>F7</td>
+            <td>Map information</td>
+        </tr>
+        <tr>
+            <td>F8</td>
+            <td>Tools</td>
+        </tr>
+        <!--<tr>-->
+            <!--<td>S</td>-->
+            <!--<td>Quick save</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>U</td>-->
+            <!--<td>Undo</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>A</td>-->
+            <!--<td>Animate moving tiles</td>-->
+        <!--</tr>-->
+        <tr>
+            <td>Shift</td>
+            <td>Switch Layer</td>
+        </tr>
+        <tr>
+            <td>Mouse left</td>
+            <td>Draw</td>
+        </tr>
+        <tr>
+            <td>Mouse right</td>
+            <td>Remove</td>
+        </tr>
+        <tr>
+            <td>Mouse middle</td>
+            <td>Pick block/sprite</td>
+        </tr>
+        <!--<tr>-->
+            <!--<td>Mouse left</td>-->
+            <!--<td>Paint (map menu)</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>Mouse right</td>-->
+            <!--<td>Go to (map menu)</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>Alt + Mouse</td>-->
+            <!--<td>Select area</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>Ctrl + C</td>-->
+            <!--<td>Copy</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>Ctrl + B</td>-->
+            <!--<td>Paste simple</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>Ctrl + V</td>-->
+            <!--<td>Paste pattern</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>Ctrl + X</td>-->
+            <!--<td>Cut</td>-->
+        <!--</tr>-->
+        <tr>
+            <td>Arrows / WSAD</td>
+            <td>Scroll map</td>
+        </tr>
+        <!--<tr>-->
+            <!--<td>Esc</td>-->
+            <!--<td>Exit</td>-->
+        <!--</tr>-->
+    </table>
+</div>
+
+<div id="pk2window-mini-map" class="window rvstyle hiddenComponent">
+    <h2>Mini-map (F2)</h2>
+    <canvas id="editor-mini-map-canvas" width="256" height="224"></canvas>
+</div>
+
+<div id="pk2window-tileset" class="window rvstyle hiddenComponent">
+    <h2>Tiles (F3)</h2>
+    <canvas id="editor-tileset-canvas" width="320" height="480"></canvas>
+</div>
+
+<div id="pk2window-sprite-selector" class="window rvstyle hiddenComponent">
+    <h2>Sprites (F4)</h2>
+    <div id="sprite-selector-container">
+        No sprites loaded
+        <!--<div data-sprite-id="0" class="spriteDiv">-->
+            <!--<div class="spriteCanvasContainerDiv">-->
+                <!--<canvas width="100px" height="100px" class="spriteCanvas"></canvas>-->
+            <!--</div>-->
+            <!--<div class="spriteDataContainerDiv">-->
+                <!--ROOSTER <br>-->
+                <!--ROOSTER.SPR <br>-->
+                <!--PLAYER: YES <br>-->
+                <!--COUNT: 0x-->
+            <!--</div>-->
+        <!--</div> <br>-->
+        <!--<div data-sprite-id="1" class="spriteDiv">-->
+            <!--<div class="spriteCanvasContainerDiv">-->
+                <!--<canvas width="100px" height="100px" class="spriteCanvas"></canvas>-->
+            <!--</div>-->
+            <!--<div class="spriteDataContainerDiv">-->
+                <!--BUNNY <br>-->
+                <!--BUNNY.SPR <br>-->
+                <!--PLAYER: NO <br>-->
+                <!--COUNT: 2x-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+
+<div id="pk2window-files" class="window rvstyle hiddenComponent">
+    <h2>Files (F6)</h2>
+    <table>
+        <tr>
+            <td>
+                <select id="pk2window-files-selector" onchange="pk2.levelEditor.fileSelector.controller.fileName = this.value" size="10"></select>
+            </td>
+            <td>
+                <button id="pk2window-files-button-tiles" data-file-type="tiles">Tiles</button><br/>
+                <button id="pk2window-files-button-sprites" data-file-type="sprites">Sprites</button><br/>
+                <button id="pk2window-files-button-scenery" data-file-type="scenery">Scenery</button><br/>
+                <button id="pk2window-files-button-music" data-file-type="music">Music</button><br/>
+                <br/>
+                <button id="pk2window-files-button-load">Load</button><br/>
+                <br/>
+                <br/>
+                <br/>
+                <div id="pk2window-files-dragdrop-box">DragDrop Loader</div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="pk2window-map-info" class="window rvstyle hiddenComponent">
+    <h2>Map Information (F7)</h2>
+    <table>
+        <tr>
+            <td>Version:</td>
+            <td><span id="pk2window-map-info-version">1.3</span></td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td><input id="pk2window-map-info-name" type="text" /></td>
+        </tr>
+        <tr>
+            <td>File name:</td>
+            <td><input id="pk2window-map-info-filename" type="text" /></td>
+        </tr>
+        <tr>
+            <td>Creator:</td>
+            <td><input id="pk2window-map-info-creator" type="text" /></td>
+        </tr>
+        <tr>
+            <td>Tileset:</td>
+            <td><input id="pk2window-map-info-tileset" type="text" /></td>
+        </tr>
+        <tr>
+            <td>Background image:</td>
+            <td><input id="pk2window-map-info-bg-image" type="text" /></td>
+        </tr>
+        <tr>
+            <td>Background scrolling:</td>
+            <td>
+                <select id="pk2window-map-info-scrolling-selector">
+                    <option value="0">Static</option>
+                    <option value="1">Horizontal</option>
+                    <option value="2">Vertical</option>
+                    <option value="3">Both</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Weather:</td>
+            <td>
+                <select id="pk2window-map-info-weather-selector">
+                    <option value="0">Normal</option>
+                    <option value="1">Rain</option>
+                    <option value="2">Leaves</option>
+                    <option value="3">Rain + Leaves</option>
+                    <option value="4">Snow</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Background music:</td>
+            <td><input id="pk2window-map-info-music" type="text" /></td>
+        </tr>
+        <tr>
+            <td>Level number:</td>
+            <td><input id="pk2window-map-info-level-number" type="number" value="0" /></td>
+        </tr>
+        <tr>
+            <td>Time:</td>
+            <td><input id="pk2window-map-info-level-time-mins" class="time" type="number" value="0" size="2" min="0" max="99" />:
+                <input id="pk2window-map-info-level-time-secs" class="time" type="number" value="0" size="2" min="0" max="59" /></td>
+        </tr>
+        <tr>
+            <td>Map icon:</td>
+            <td><input id="pk2window-map-info-icon" type="number" value="0" /></td>
+        </tr>
+        <tr>
+            <td>Map x:</td>
+            <td><input id="pk2window-map-info-map-x" type="number" value="0" /></td>
+        </tr>
+        <tr>
+            <td>Map y:</td>
+            <td><input id="pk2window-map-info-map-y" type="number" value="0" /></td>
+        </tr>
+        <tr>
+            <td><button id="pk2window-map-info-save">Save</button></td>
+            <td><button id="pk2window-map-info-reload">Reload</button></td>
+        </tr>
+    </table>
+</div>
+
+<div id="pk2window-tools" class="window rvstyle hiddenComponent">
+    <h2>Tools (F8)</h2>
+    <table>
+        <tr>
+            <td><div id="mapDragFileInput">Drag Map Here To Load</div></td>
+        </tr>
+        <tr>
+            <td><button id="save-map-button" onclick="map.writeMap();">Save Map</button></td>
+        </tr>
+        <tr>
+            <td><button id="play-music-button" onclick="playBtnHandler(this);">Play Level Music</button></td>
+        </tr>
+        <tr><td><br></td></tr>
+        <tr>
+            <td><button onclick="toggleWindowState(pk2editor.windows['pk2window-icon-positioning-helper']);">Icon Positioning Helper</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="toggleWindowState(pk2editor.windows['pk2window-move-map-tool']);">Move Map Tool</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="toggleWindowState(pk2editor.windows['pk2window-dev-log-tool']);">Developer Log</button></td>
+        </tr>
+        <tr><td><br></td></tr>
+        <tr>
+            <td><button id="pk2window-tools-clear-map-button">Clear Map</button></td>
+        </tr>
+    </table>
+</div>
+
+<div id="pk2window-confirm-dialog" class="window rvstyle hiddenComponent">
+    <h2>Confirmation</h2>
+    <div>
+        <div id="pk2window-confirm-dialog-text">Are you sure?</div><br>
+        <button id="pk2window-confirm-dialog-button-ok">OK</button>
+        <button id="pk2window-confirm-dialog-button-cancel">Cancel</button>
+    </div>
+</div>
+
+<div id="pk2window-icon-positioning-helper" class="window rvstyle hiddenComponent">
+    <h2>Map Icon Positioning Helper</h2>
+    <div>
+        <span>Click to move edited map icon. Drag other maps onto the canvas to preview their icons.</span>
+        <br>
+        <canvas id="pk2window-icon-positioning-helper-canvas" width="640" height="480"></canvas>
+        <br>
+        <button onclick="pk2.levelEditor.mapIconPositioningHelper.controller.loadIconInfoFromMap();" style="">Load from map</button>
+        <button onclick="pk2.levelEditor.mapIconPositioningHelper.controller.writeIconInfoToMap();" style="">Save to map</button>
+        <button id="pk2window-icon-positioning-helper-clear-button" onclick="pk2.levelEditor.mapIconPositioningHelper.controller.clearLoadedMapIcons();" style="">Clear loaded map icons</button>
+    </div>
+</div>
+
+<div id="pk2window-move-map-tool" class="window rvstyle hiddenComponent">
+    <h2>Move Map</h2>
+    <div>
+        <span>Move map by [x,y]</span>
+        <br>
+        <span>X:</span><input id="pk2window-move-map-tool-input-x" type="number" value="0">
+        <span>Y:</span><input id="pk2window-move-map-tool-input-y" type="number" value="0">
+        <br>
+        <br>
+        <button id="pk2window-move-map-tool-button-move" onclick="map.shiftMap(parseInt(document.getElementById('pk2window-move-map-tool-input-x').value), parseInt(document.getElementById('pk2window-move-map-tool-input-y').value))">Move map</button>
+    </div>
+</div>
+
+<div id="pk2window-dev-log-tool" class="window rvstyle hiddenComponent">
+    <h2>Developer Log</h2>
+    <div>
+        <textarea id="devOut">DevOut</textarea>
+    </div>
+</div>
+
+</body>
+</html>

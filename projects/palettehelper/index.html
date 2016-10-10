@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Palette testbed (PROJECT JSPK2)</title>
+<link rel="shortcut icon" href="favicon.ico" />
+<!--<script type="text/javascript" src="js/jquery-1.9.1.js"></script>-->
+<script type="text/javascript" src="//dl.dropboxusercontent.com/u/3681010/Projects/RvSiteResources/projects/palettehelper/js/binFile.js"></script>
+<link rel="stylesheet" href="//dl.dropboxusercontent.com/u/3681010/Projects/RvSiteResources/projects/palettehelper/css/style.css">
+<script type="text/javascript" src="//dl.dropboxusercontent.com/u/3681010/Projects/RvSiteResources/projects/palettehelper/js/palettehelper.js"></script>
+</head>
+<body onload="init();">
+  <div>
+    <canvas id="maincv" width="640" height="480" style="border: solid 1px;"></canvas>
+    <textarea id="devout" class="hiddenComponent" style="width: 300px; height: 480px;">DevOut</textarea>
+  </div><br/>
+  <div>
+    <div class="inputContainer">
+      <div>
+        <!--input class="inputFieldFixedWidth" id="bgURL" type="text" value="gfx/scenery/EFLD4N.bmp">
+        <br/-->
+        <select class="inputFieldFixedWidth" id="bg-selector" onchange='loadPK2Palette(this.value, function(){tileset.rebuild()});'>
+            <optgroup label="Official">
+              <option value="gfx/scenery/CASTLE.bmp">CASTLE</option>
+              <option value="gfx/scenery/CAVE1.bmp">CAVE1</option>
+              <option value="gfx/scenery/FACTORY2.bmp">FACTORY2</option>
+              <option value="gfx/scenery/FACTORY3.bmp">FACTORY3</option>
+              <option value="gfx/scenery/FIELD_D3.bmp">FIELD_D3</option>
+              <option value="gfx/scenery/FIELD2_E.bmp">FIELD2_E</option>
+              <option value="gfx/scenery/FIELD3_D.bmp">FIELD3_D</option>
+              <option value="gfx/scenery/FIELD4_D.bmp">FIELD4_D</option>
+              <option value="gfx/scenery/FIELD4_M.bmp">FIELD4_M</option>
+              <option value="gfx/scenery/FIELD4_N.bmp" selected>FIELD4_N</option>
+              <option value="gfx/scenery/FORESTN2.bmp">FORESTN2</option>
+              <option value="gfx/scenery/FORESTN3.bmp">FORESTN3</option>
+              <option value="gfx/scenery/MEADOW_N.bmp">MEADOW_N</option>
+            </optgroup>
+            <optgroup label="Community">
+              <option value="gfx/scenery/EFLD4HW.bmp">EFLD4HW</option>
+              <option value="gfx/scenery/EFLD4N.bmp">EFLD4N</option>
+              <option value="gfx/scenery/EWSTLN4.bmp">EWSTLN4</option>
+              <option value="gfx/scenery/jbg-01a.bmp">jbg-01a (Halloween)</option>
+              <option value="gfx/scenery/eye.bmp">eye (Halloween)</option>
+            </optgroup>
+          </select>
+      </div>
+      <!--br/>
+      <input type="button" value="Set Background" onclick='loadPK2Palette(document.getElementById("bgURL").value, function(){tileset.rebuild()});'-->
+      <br/>
+      <div id="backgroundDragFileInput" class="fileInputDrag hiddenComponent">Drag Background Here</div>
+    </div>
+    <div class="inputContainer">
+      <div>
+        <!--input class="inputFieldFixedWidth" id="imgURL" type="text" value="sprites/SPR_HENS.bmp">
+        <br/-->
+        <select class="inputFieldFixedWidth" id="bg-selector" onchange='currentImgURL= this.value; loadPK2Image(currentImgURL);'>
+          <optgroup label="Tilesets">
+            <option value="gfx/tiles/TILES01.bmp" selected>TILES01</option>
+            <option value="gfx/tiles/TILES02.bmp">TILES02</option>
+            <option value="gfx/tiles/TILES03.bmp">TILES03</option>
+            <option value="gfx/tiles/TILES_07.bmp">TILES_07</option>
+            <option value="gfx/tiles/TILES_08.bmp">TILES_08</option>
+            <option value="gfx/tiles/TILES_09.bmp">TILES_09</option>
+            <option value="gfx/tiles/TILES_10.bmp">TILES_10</option>
+          </optgroup>
+          <optgroup label="Sprites">
+            <option value="sprites/SPR_HENS.bmp">SPR_HENS</option>
+          </optgroup>
+          <optgroup label="Misc">
+            <option value="gfx/ENDING.bmp">ENDING</option>
+            <option value="gfx/INTRO.bmp">INTRO</option>
+            <option value="gfx/MAP.bmp">MAP</option>
+            <option value="gfx/MENU.bmp">MENU</option>
+            <option value="gfx/PK2STUFF.bmp">PK2STUFF</option>
+          </optgroup>
+          <optgroup label="Community">
+            <option value="gfx/tiles/TIL_BFAC.bmp">TIL_BFAC</option>
+          </optgroup>
+        </select>
+      </div>
+      <!--br/>
+      <input type="button" value="Set Image" onclick='currentImgURL= document.getElementById("imgURL").value; loadPK2Image(currentImgURL);'-->
+      <br/>
+      <div id="spriteDragFileInput" class="fileInputDrag hiddenComponent" style="line-height: 20px; height: 60px; padding: 45px 0;">
+        Drag <br/>
+        <span style="pointer-events: none" id="dragNDropHintContainer">Sprite</span><br/>
+        Here
+      </div>
+    </div>
+    <div class="inputContainer">
+      <input type="button" value="Set Variant" onclick='setColorVariant();'>
+      <select id="color-variant-selector">          
+        <option value="255">Original</option>
+        <option value="0">Grey</option>
+        <option value="32">Blue</option>
+        <option value="64">Red</option>
+        <option value="96">Green</option>
+        <option value="128">Orange</option>
+        <option value="160">Violet</option>
+        <option value="192">Turquoise</option>
+      </select>
+      <br/>
+      <input type="button" value="Toggle palette" onclick='drawPalette= !drawPalette;'>
+      <br/>
+      <input type="button" value="Toggle drag file inputs" onclick='toggleDragFileInputs();'>
+      <br/>
+      <!--a download onclick='saveRecoloredSprite(this);'><button type="button">Save recolored sprite</button></a-->
+      <a download onclick='saveRecoloredSprite(this);'><input type="button" value="Save recolored sprite"/></a>
+    </div>
+  </div><br/>
+</body>
+</html>
