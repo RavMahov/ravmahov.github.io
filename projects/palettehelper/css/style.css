@@ -1,0 +1,38 @@
+html{
+    background-image: url('../img/bg/4.png');
+    background-color: midnightblue;
+}
+
+html, body{
+    color: white;
+}
+
+.inputContainer{
+    float: left;
+    #width: 220px;
+    margin-right: 3px;
+    display: inline-block;
+}
+
+.inputFieldFixedWidth{
+    width: 220px;
+}
+
+.fileInputDrag{
+    border: 2px dashed #fff;
+    text-align: center;
+    width: 200px;
+    height: 150px;
+    float: left;
+    line-height: 150px;
+    font-family: Verdana;
+}
+
+.fileInputDrag.hover{
+    border: solid;
+    background-color: midnightblue;
+}
+
+.hiddenComponent{
+    display: none;
+}
